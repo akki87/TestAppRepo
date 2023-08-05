@@ -1,19 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using TestApp.Weather;
 
@@ -38,10 +25,10 @@ namespace TestApp
         {
             // You can add default city or leave it empty.
             // In this example, we are not setting a default city.
-            GetData();
+             //await GetData();
             Main();
         }
-        private async void GetData()
+        private async  Task GetData()
         {
             string city = "Hyderabad";
             WeatherService weatherService = new WeatherService();
@@ -56,9 +43,9 @@ namespace TestApp
             nameTextBlock.Text = $"in {weatherData.name}";
             weatherTextBlock.Text = $"{weatherData.weather[0].main}";
             humidityTextBlock.Text = $"{weatherData.main.humidity}% humidity";
-            feelsLikeTextBlock.Text = $"Feels like {weatherData.main.temp + 2} °C";
-            HighTextBlock.Text = $"Max temp {weatherData.main.temp + 2}°C";
-            LowTextBlock.Text = $"Min temp {weatherData.main.temp - 12}°C";
+            feelsLikeTextBlock.Text = $"Feels like {(weatherData.main.temp + 2).ToString().Substring(0,4)} °C";
+            HighTextBlock.Text = $"Max temp {(weatherData.main.temp + 2).ToString().Substring(0,4)}°C";
+            LowTextBlock.Text = $"Min temp {(weatherData.main.temp - 12).ToString().Substring(0,4)}°C";
 
             string WindDirection(int dir)
             {
@@ -94,15 +81,15 @@ namespace TestApp
             windTextBlock.FontSize = fontSize - 10;
 
         }
-        void Main()
+        async Task Main()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(10);
+            timer.Interval = TimeSpan.FromSeconds(30);
             timer.Tick += Timer_Tick;
             timer.Start();
-
             // Start the first data fetch and update UI
-            GetData();
+            await GetData();
+            
 
         }
         private void Window_Activated(object sender, EventArgs e)
@@ -120,7 +107,7 @@ namespace TestApp
         {
             // Update the data every 10 seconds using Dispatcher.Invoke
             // Dispatcher.Invoke ensures UI updates are done on the UI thread
-            await Dispatcher.InvokeAsync(() =>
+            await Dispatcher.Invoke(async () =>
             {
                 lock (dataLock)
                 {

@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" Activated="Window_Activated" Deactivated="Window_Deactivated">
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="MainWindow" Height="450" Width="700" SizeChanged="Window_SizeChanged" Activated="Window_Activated" Deactivated="Window_Deactivated">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -24,6 +24,7 @@
             <TextBlock x:Name="nameTextBlock" Foreground="White" FontSize="25"/>
             <TextBlock Foreground="White" FontSize="25" x:Name="weatherTextBlock"/>
             <TextBlock Foreground="White" FontSize="25" x:Name="humidityTextBlock"  />
+            <TextBlock x:Name="lastUpdatedTextBlock"  FontSize="8"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal"
             HorizontalAlignment="Center" VerticalAlignment="Center">

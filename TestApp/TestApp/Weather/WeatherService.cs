@@ -1,17 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TestApp.Weather;
 
 public class WeatherService
 {
-    private const string ApiKey = "2aa036605a200a74b2d80ab621544076";
-    private const string BaseUrl = "https://api.openweathermap.org/data/2.5/weather";
 
     public async Task<WeatherData> GetWeatherData(string city)
     {
-        string url = $"{BaseUrl}?q={city}&appid={ApiKey}&units=metric";
+        string url = $"{ConfigurationManager.AppSettings.Get("apiurl")}?q={city}&appid={ConfigurationManager.AppSettings.Get("apikey")}&units=metric";
 
         using (HttpClient httpClient = new HttpClient())
         {
