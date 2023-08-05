@@ -11,7 +11,7 @@ jobs:
   deploy:
      runs-on: windows-latest
      steps:
-        - uses: actions/checkout@v1
+        - uses: actions/checkout@v2
   
         - uses: actions/setup-dotnet@v1
           with:
@@ -31,7 +31,7 @@ jobs:
             release_name : ${{ github.ref }}
 
 
-        - uses: csexton/release-asset-actions@v2
+        - uses: TestRepo/release-asset-actions@v1
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             pattern: TestApp/TestApp/bin/Release/net6.0-windows/publish/win-x64/*.exe
