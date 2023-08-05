@@ -22,7 +22,7 @@ jobs:
         - run : dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
         - run : dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained  -p:PublishSingleFile=true 
   
-        - uses: action/create-release@v1
+        - uses: action/create_release@v1
           id: create_release
           env:
              GITUB_TOKEN: $ {{ secrets.GITUB_TOKEN }}
