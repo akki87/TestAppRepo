@@ -6,7 +6,7 @@ on:
        - "TestAppCommands/v*"
 
 env:
-    PROJECT_PATH: TestApp/TestApp.csproj
+    PROJECT_PATH: TestApp/TestApp/TestApp.csproj
 jobs:
   deploy:
      runs-on: windows-latest
