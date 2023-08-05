@@ -22,7 +22,7 @@ jobs:
         - run : dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
         - run : dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained  -p:PublishSingleFile=true 
   
-        - uses: action/create_release@v1
+        - uses: actions/create_release@v1
           id: create_release
           env:
              GITUB_TOKEN: $ {{ secrets.GITUB_TOKEN }}
@@ -31,7 +31,7 @@ jobs:
             release_name : ${{ github.ref }}
 
 
-        - uses: TestRepo/release-asset-actions@v1
+        - uses: csexton/release-asset-actions@v1
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             pattern: TestApp/TestApp/bin/Release/net6.0-windows/publish/win-x64/*.exe
