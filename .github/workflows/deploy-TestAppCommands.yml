@@ -1,38 +1,49 @@
 name: "Deploy TestApp Commands"
 
 on:
-   push:
-     tags:
-       - "TestAppCommands/v*"
+  push:
+    tags:
+      - "TestAppCommands/v*"
 
 env:
-    PROJECT_PATH: TestApp/TestApp/TestApp.csproj
+  PROJECT_PATH: TestApp/TestApp/TestApp.csproj
+
 jobs:
   deploy:
-     runs-on: windows-latest
-     steps:
-        - uses: ./actions/checkout@v2
-  
-        - uses: ./actions/setup-dotnet@v1
-          with:
-            dotnet-version : 6.0.x
+    runs-on: windows-latest
 
-            
-        - run : dotnet restore ${{ env.PROJECT_PATH }}
-        - run : dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
-        - run : dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained  -p:PublishSingleFile=true 
-  
-        - uses: ./actions/create_release@v1
-          id: create_release
-          env:
-             GITUB_TOKEN: $ {{ secrets.GITUB_TOKEN }}
-          with:
-            tag_name: ${{ github.ref }}
-            release_name : ${{ github.ref }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
 
-        - uses: csexton/release-asset-action@v1
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            pattern: TestApp/TestApp/bin/Release/net6.0-windows/publish/win-x64/*.exe
-            release-url: ${{ steps.create_release.outputs.upload_url }}
+      - name: Restore packages
+        run: dotnet restore "${{ env.PROJECT_PATH }}"
+
+      - name: Build the project
+        run: dotnet build "${{ env.PROJECT_PATH }}" -c Release --no-restore
+
+      - name: Publish the project
+        run: dotnet publish "${{ env.PROJECT_PATH }}" -c Release --self-contained -r win-x64 --output "publish"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./publish/TestApp.exe
+          asset_name: TestApp.exe
+          asset_content_type: application/octet-stream
