@@ -44,6 +44,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./TestApp/TestApp/bin/Release/net6.0-windows/publish/win-x64/TestApp.exe
+          asset_path: TestApp/TestApp/bin/Release/net6.0-windows/publish/win-x64/*.exe
           asset_name: TestApp.exe
           asset_content_type: application/octet-stream
