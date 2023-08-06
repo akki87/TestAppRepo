@@ -31,7 +31,7 @@ jobs:
             release_name : ${{ github.ref }}
 
 
-        - uses: TestRepo/release-asset-actions@v1
+        - uses: TestAppRepo/release-asset-actions@v1
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             pattern: TestApp/TestApp/bin/Release/net6.0-windows/publish/win-x64/*.exe
