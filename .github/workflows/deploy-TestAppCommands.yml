@@ -40,7 +40,7 @@ jobs:
           release_name: ${{ github.ref }}
 
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
+        uses: csexton/release-asset-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pattern: TestApp/TestApp/bin/Release/net6.0-windows/publish/win-x64/*.exe
