@@ -25,7 +25,7 @@ namespace TestApp
         {
             // You can add default city or leave it empty.
             // In this example, we are not setting a default city.
-             //await GetData();
+            await GetData();
             Main();
         }
         private async  Task GetData()
