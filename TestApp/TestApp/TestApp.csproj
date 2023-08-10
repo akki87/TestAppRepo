@@ -6,6 +6,17 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<UseWindowsForms>True</UseWindowsForms>
+	<StartupObject>TestApp.App</StartupObject>
+	<BaseOutputPath>F:\TestAppRepo\TestApp\TestApp\bin\Release\net6.0-windows\publish\win-x64</BaseOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
