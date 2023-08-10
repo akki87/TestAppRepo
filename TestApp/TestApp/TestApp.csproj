@@ -8,7 +8,7 @@
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	<UseWindowsForms>True</UseWindowsForms>
 	<StartupObject>TestApp.App</StartupObject>
-	<BaseOutputPath>F:\TestAppRepo\TestApp\TestApp\bin\Release\net6.0-windows\publish\win-x64</BaseOutputPath>
+	<BaseOutputPath>bin\</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
